@@ -1,13 +1,9 @@
-# Create your tasks here
+from __future__ import absolute_import, unicode_literals
 from celery import Celery
 from celery.task import periodic_task
 from celery.schedules import crontab
 from datetime import timedelta
-from __future__ import absolute_import, unicode_literals
 from celery import shared_task
-import celery
-
-app = celery.Celery('example')
 
 
 # @periodic_task(run_every=(timedelta(seconds=5)), name='my_first_task')
