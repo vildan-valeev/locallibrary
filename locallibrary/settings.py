@@ -43,7 +43,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -118,31 +117,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# It is Whiteness
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Celery
-# CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_BROKER_URL = 'redis://h:pd006a50f997b9cc78a328957277b4ce3017d043871fd9916327cd972393c6f59@ec2-52-210-119-200.eu-west-1.compute.amazonaws.com:19229'           # server
-
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-import os
-# locallibrary.conf.update(CELERY_BROKER_URL=os.environ['REDIS_URL'],
-#                CELERY_RESULT_BACKEND=os.environ['REDIS_URL'])
-
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_BEAT_SCHEDULE = {
-    'second-task': {
-        'task': 'catalog.tasks.second_task',
-        'schedule': 10.0,
-    }
-}
-
-# Heroku: Update database configuration from $DATABASE_URL.
-import dj_database_url
-
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
